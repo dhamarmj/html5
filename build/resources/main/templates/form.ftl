@@ -64,7 +64,7 @@
         <h2>Unsaved Forms</h2>
     </div>
     <div class="text-right">
-        <button class="btn btn-outline-primary btn-md" id="syncButton"><a href="/Formularios">See Results!</a> </button>
+        <button class="btn btn-outline-primary btn-md" id="syncButton" onclick="return seeSavedItems()">See Results!</button>
         <button class="btn btn-outline-primary btn-md" id="syncButton" onclick="return synced()">Sync!</button>
     </div>
     <table id="form_values" class="display" style="width:100%">
@@ -91,10 +91,9 @@
 <script src="../js/jquery.js"></script>
 <script src="../js/dexie.js"></script>
 <script src="../js/table.js"></script>
+<script src="../js/offline.js"></script>
 <#--//Code!-->
 <script src="../js/serviceWorker.js"></script>
 <script src="../js/mainController.js"></script>
-
-
 </body>
 </html>

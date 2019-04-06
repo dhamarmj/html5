@@ -6,6 +6,7 @@ var urlsToCache = [
     '/js/dexie.js',
     '/js/table.js',
     '/js/mainController.js',
+    '/js/offline.js',
     '/'
 ];
 

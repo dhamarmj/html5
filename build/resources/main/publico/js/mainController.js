@@ -1,11 +1,17 @@
-var latitude, longitude;
+var latitude=0, longitude=0;
+
+var options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+};
 
 $(document).ready(function () {
     //  loadState()
     loadTabla()
 
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+        navigator.geolocation.getCurrentPosition(geoSuccess, geoError, options);
     }
 })
 
@@ -15,14 +21,14 @@ $("#form").submit(function () {
     if (option == "Edit!") {
         editForm()
     } else {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
-        }
+        // if (navigator.geolocation) {
+        //     navigator.geolocation.getCurrentPosition(geoSuccess, geoError, options);
+        // }
         var db = new Dexie("form");
         db.version(1).stores({
             form: '++id,name,sector,education,latitude,longitude'
         });
-        console.log(latitude)
+        console.log(latitude + " " + longitude);
         db.form.add({
             name: $('#firstName').val(),
             sector: $('#sector').val(),
@@ -136,7 +142,7 @@ function editForm() {
         sector: $('#sector').val(),
         education: $('#education').val(),
         latitude: latitude,
-        longitude:longitude
+        longitude: longitude
     }).then(function (updated) {
         if (updated) {
             loadTabla();
@@ -186,30 +192,23 @@ function deleteAll() {
     db.form.clear();
 }
 
-function loadState() {
-    if (navigator.onLine) {
-        $("#state").text("Online");
-        //  $("#state").style.color = "green";
-    } else {
-        $("#state").text("Offline");
-        //$("#state").style.color = "red";
-        console.log(navigator.onLine);
-    }
-
-}
-
 function geoSuccess(position) {
+
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
 };
 
-function geoError() {
-    latitude = 0;
-    longitude = 0;
-    var errors = {
-        1: 'Permission denied',
-        2: 'Position unavailable',
-        3: 'Request timeout'
-    };
-    alert("GeoError: " + errors[error.code]);
+function geoError(error) {
+    console.log('Error with Geolocation ' + error.message);
+    latitude = 18.7357;
+    longitude = -70.1627;
+}
+
+function seeSavedItems() {
+
+    if(navigator.onLine){
+        window.location.href = '/Formularios';
+    }
+    else
+        alert("You're Offline!!!");
 }
