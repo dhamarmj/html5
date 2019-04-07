@@ -205,7 +205,6 @@ function geoError(error) {
 }
 
 function seeSavedItems() {
-
     if(navigator.onLine){
         window.location.href = '/Formularios';
     }
